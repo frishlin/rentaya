@@ -1,0 +1,17 @@
+.app-container {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f8fc;
+}
+
+.titulo {
+  font-size: 2.5rem;
+  color: #0d1a26;
+}
+
+.slogan {
+  font-size: 1.2rem;
+  color: #5a7894;
+  font-weight: 500;
+}
