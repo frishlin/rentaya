@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './components/Header'
 import ProductoList from './components/ProductoList'
 import RegistroUsuario from './components/RegistroUsuario';
+import LoginUsuario from './components/LoginUsuario';
 
 const App = () => {
   return (
@@ -16,7 +17,9 @@ const App = () => {
 
         {/*Registro de usuarios */}
         <RegistroUsuario />
-        
+
+        {/*Inicio de sesion */}
+        <LoginUsuario />
       </main>
     </>
   )

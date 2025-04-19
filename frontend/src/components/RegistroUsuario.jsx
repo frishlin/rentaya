@@ -39,7 +39,7 @@ const RegistroUsuario = () => {
     return(
         <section className="registro-container">
             <h2>Registro de Usuario</h2>
-            <form className="reistro-form" onSubmit={handleSubmit}>
+            <form className="registro-form" onSubmit={handleSubmit}>
                 <input type="text" name="nombre" value={usuario.nombre} onChange={handleChange} placeholder="Nombre completo" required />
                 <input type="email" name="email" value={usuario.email} onChange={handleChange} placeholder="Correo electrónico" required />
                 <input type="password" name="contrasenia" value={usuario.contrasenia} onChange={handleChange} placeholder="Contraseña" required />
