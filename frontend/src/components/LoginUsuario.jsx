@@ -18,7 +18,11 @@ const LoginUsuario = () => {
             });
             const resultado = await respuesta.text();
             if(respuesta.ok) {
+                localStorage.setItem('usuario', JSON.stringify({email: datos.email}));
                 setMensaje(`${resultado}`);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
             } else {
                 setMensaje(`${resultado}`);
             }
