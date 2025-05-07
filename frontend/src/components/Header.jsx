@@ -8,10 +8,17 @@ const Header = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const usuarioGuardado = localStorage.getItem('usuario');
-        if (usuarioGuardado) {
-            setUsuario(JSON.parse(usuarioGuardado));
-        }
+        const cargarUsuario = () => {
+            const usuarioGuardado = localStorage.getItem('usuario');
+            setUsuario(usuarioGuardado ? JSON.parse(usuarioGuardado) : null);
+        };
+        cargarUsuario();
+        
+        window.addEventListener("usuario-actualizado", cargarUsuario);
+        return() => {
+            window.removeEventListener("usuario-actualizado", cargarUsuario);
+        };
+        
     }, []);
 
     const cerrarSesion = () => {

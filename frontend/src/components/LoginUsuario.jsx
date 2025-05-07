@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './RegistroUsuario.css';
 
 const LoginUsuario = () => {
     const [datos, setDatos] = useState({email: '', contrasenia: '' });
     const [mensaje, setMensaje] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setDatos({...datos, [e.target.name]: e.target.value});
@@ -21,7 +23,9 @@ const LoginUsuario = () => {
                 localStorage.setItem('usuario', JSON.stringify({email: datos.email}));
                 setMensaje(`${resultado}`);
                 setTimeout(() => {
-                    window.location.reload();
+                    window.dispatchEvent(new Event("usuario-actualizado"));
+                    navigate('/');
+                    
                 }, 500);
             } else {
                 setMensaje(`${resultado}`);
