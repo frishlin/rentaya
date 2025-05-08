@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ProductoList.css';
 
-const ProductoList = ({ terminoBusqueda }) => {
+const ProductoList = ({ filtrosBusqueda }) => {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
@@ -18,8 +18,10 @@ const ProductoList = ({ terminoBusqueda }) => {
     fetchProductos();
   }, []);
 
+  const ciudadBuscada = filtrosBusqueda?.ciudad.toLowerCase() || '';
+  
   const productosFiltrados = productos.filter(producto =>
-    producto.nombre.toLowerCase().includes(terminoBusqueda.toLowerCase())
+    producto.nombre.toLowerCase().includes(ciudadBuscada)
   );
 
   if (productos.length === 0) {

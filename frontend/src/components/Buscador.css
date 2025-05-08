@@ -37,3 +37,8 @@
     background-color: #ffcb05;
     color: #1a1a1a;
 }
+
+.input-ciudad {
+    flex: 2;
+    min-width: 250px;
+}

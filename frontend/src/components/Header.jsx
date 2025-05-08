@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Header.css'
 import logo from '../assets/logo-rentaya-amarillo.png'
 
-const Header = () => {
+const Header = ({onReset}) => {
     const [usuario, setUsuario] = useState(null);
     const navigate = useNavigate();
 
@@ -33,8 +33,8 @@ const Header = () => {
             <img src={logo} alt="Logo RentaYa" className="logo-header" />
             <nav className="nav">
                 <ul>
-                    <li><Link to="/">Inicio</Link></li>
-                    <li><Link to="/">Vehículos</Link></li>
+                    <li><Link to="/" onClick={onReset}>Inicio</Link></li>
+                    <li><Link to="/" onClick={onReset}>Vehículos</Link></li>
                     <li><Link to="/">Contacto</Link></li>
 
                     {!usuario && (

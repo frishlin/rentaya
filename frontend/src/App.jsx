@@ -9,23 +9,31 @@ import Footer from './components/Footer';
 import Error404 from './components/Error404';
 
 const App = () => {
-  const [terminoBusqueda, setTerminoBusqueda] = useState('');
+  const [filtrosBusqueda, setFiltrosBusqueda] = useState({
+    ciudad: '',
+    fechaInicio: '',
+    fechaFin: ''
+  });
 
-  const handleBuscar = (ciudad) => {
-    setTerminoBusqueda(ciudad);
+  const reinicarBusqueda = () => {
+    setFiltrosBusqueda({ciudad: '', fechaInicio: '', fechaFin: ''});
+  }
+
+  const handleBuscar = (filtros) => {
+    setFiltrosBusqueda(filtros);
   };
 
   return (
     <Router>
-      <Header />
+      <Header onReset = {reinicarBusqueda} />
       <main className='app-container'>
         <Routes>
           <Route path="/" element={
             <>
               <h1>¡Te damos la más cordial bienvenida a RentaYa!</h1>
               <h2>¡Aquí podrás encontrar el vehículo que necesitas!</h2>
-              <Buscador onBuscar={handleBuscar} />
-              <ProductoList terminoBusqueda={terminoBusqueda} />
+              <Buscador onBuscar={handleBuscar} filtros={filtrosBusqueda} />
+              <ProductoList filtrosBusqueda={filtrosBusqueda} />
             </>
           } />
 
