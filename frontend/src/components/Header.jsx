@@ -33,6 +33,7 @@ const Header = ({onReset}) => {
             <img src={logo} alt="Logo RentaYa" className="logo-header" />
             <nav className="nav">
                 <ul>
+                    <li><Link to="/admin/registro">Panel Administrador</Link></li>
                     <li><Link to="/" onClick={onReset}>Inicio</Link></li>
                     <li><Link to="/" onClick={onReset}>Vehículos</Link></li>
                     <li><Link to="/">Contacto</Link></li>

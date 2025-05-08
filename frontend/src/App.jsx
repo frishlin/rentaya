@@ -7,6 +7,7 @@ import LoginUsuario from './components/LoginUsuario';
 import Buscador from './components/Buscador';
 import Footer from './components/Footer';
 import Error404 from './components/Error404';
+import RegistroProducto from './components/RegistroProducto';
 
 const App = () => {
   const [filtrosBusqueda, setFiltrosBusqueda] = useState({
@@ -38,6 +39,7 @@ const App = () => {
           } />
 
           <Route path="/registro" element={<RegistroUsuario />} />
+          <Route path='/admin/registro' element={<RegistroProducto />}></Route>
           <Route path="/login" element={<LoginUsuario />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
