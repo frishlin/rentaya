@@ -1,0 +1,83 @@
+.registro-container {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: #1a1a1a;
+    border: 2px solid #ffcb05;
+    border-radius: 10px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #ffffff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+button {
+    color: #ffcb05;   
+    border: 2px solid #ffcb05;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.registro-container h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #ffcb05;
+}
+
+.registro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.registro-form button:hover{
+    background-color: #ffc107;
+    color: #1a1a1a;
+}
+
+.registro-form label {
+    font-weight: bold;
+}
+
+.registro-form input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.registro-form button {
+    background-color: transparent;
+    color: #ffc107;
+    font-weight: bold;
+    border: 2px solid #ffcb05;
+    padding: 0.7rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+.mensaje {
+    margin-top: 1rem;
+    text-align: center;
+    color: #ffcb05;
+    font-weight: bold;
+}
+
+.registro-form textarea {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    resize: none;
+    font-family: inherit;
+    width: 165px;
+}

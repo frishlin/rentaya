@@ -15,7 +15,7 @@ const RegistroProducto = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await fetch('http://localhost;8080/productos', {
+            const respuesta = await fetch('http://localhost:8080/productos', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(producto)
@@ -34,10 +34,10 @@ const RegistroProducto = () => {
 
     return(
         <section className="registro-container">
-            <h2>Nuevo registro</h2> 
+            <h2>Registrar automóvil</h2> 
             <form className="registro-form" onSubmit={handleSubmit}>
                 <input type="text" name="nombre" value={producto.nombre} onChange={handleChange} placeholder="Nombre del vehículo" required />
-                <textarea type="text" name="descripcion" value={producto.nombre} onChange={handleChange} placeholder="Descripción" required></textarea>
+                <textarea type="text" name="descripcion" value={producto.descripcion} onChange={handleChange} placeholder="Descripción" required></textarea>
                 <input type="text" name="imagenUrl" value={producto.imagenUrl} onChange={handleChange} placeholder="URL de la imagen" required />
                 <button type="submit">Registrar</button>
             </form>
