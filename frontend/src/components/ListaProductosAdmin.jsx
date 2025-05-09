@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 const ListaProductosAdmin = () => {
     const [productos, setProductos] = useState([]);
     const [mensaje, setMensaje] = useState('');
+    const editarProducto = (id) => {
+        window.location.href = `/editar/${id}`;
+    };
 
     useEffect(() => {
         const fetchProductos = async () => {
@@ -65,7 +68,10 @@ const ListaProductosAdmin = () => {
                             <td>{producto.nombre}</td>
                             <td>{producto.descripcion}</td>
                             <td><img src={producto.imagenUrl} alt={producto.nombre} width="100"/></td>
-                            <td><button onClick={() => eliminarProducto(producto.id)}>Eliminar</button></td>
+                            <td>
+                                <button className='icon-btn' onClick={() => eliminarProducto(producto.id)}>🗑️</button>
+                                <button className='icon-btn' onClick={() => editarProducto(producto.id)}>✏️</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

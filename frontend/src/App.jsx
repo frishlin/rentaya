@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Error404 from './components/Error404';
 import RegistroProducto from './components/RegistroProducto';
 import ListaProductosAdmin from './components/ListaProductosAdmin';
+import EditarProducto from './components/EditarProducto';
 
 const App = () => {
   const [filtrosBusqueda, setFiltrosBusqueda] = useState({
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/login" element={<LoginUsuario />} />
           <Route path="*" element={<Error404 />} />
           <Route path="/admin/lista" element={<ListaProductosAdmin />} />
+          <Route path='/editar/id' element={<EditarProducto />} />
         </Routes>
       </main>
       <Footer />
