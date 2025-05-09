@@ -58,6 +58,10 @@
     margin-right: 0.5rem;
 }
 
-.icon-btn:hover {
-    background-color: #000 !important;
+.eliminar-btn:hover {
+    background-color: #dc3545 !important;
+}
+
+.editar-btn:hover {
+    background-color: #0d6efd !important;
 }
