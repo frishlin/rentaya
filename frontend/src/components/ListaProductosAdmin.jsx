@@ -48,7 +48,7 @@ const ListaProductosAdmin = () => {
         <section className='admin-container'>
             <h2>Listado de productos</h2>
             {mensaje && <p className='mensaje'>{mensaje}</p> }
-            <Link to='/admin/lista'>
+            <Link to='/admin/registro'>
                 <button className='boton-volver'>Registrar nuevo vehículo</button>
             </Link>
             <table className='admin-table'>

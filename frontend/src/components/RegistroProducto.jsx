@@ -34,7 +34,7 @@ const RegistroProducto = () => {
 
     return(
         <section className="registro-container">
-            <h2>Registrar automóvil</h2> 
+            <h2>Registrar nuevo vehículo</h2> 
             <form className="registro-form" onSubmit={handleSubmit}>
                 <input type="text" name="nombre" value={producto.nombre} onChange={handleChange} placeholder="Nombre del vehículo" required />
                 <textarea type="text" name="descripcion" value={producto.descripcion} onChange={handleChange} placeholder="Descripción" required></textarea>
