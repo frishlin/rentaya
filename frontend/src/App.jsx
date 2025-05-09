@@ -8,6 +8,7 @@ import Buscador from './components/Buscador';
 import Footer from './components/Footer';
 import Error404 from './components/Error404';
 import RegistroProducto from './components/RegistroProducto';
+import ListaProductosAdmin from './components/ListaProductosAdmin';
 
 const App = () => {
   const [filtrosBusqueda, setFiltrosBusqueda] = useState({
@@ -39,9 +40,10 @@ const App = () => {
           } />
 
           <Route path="/registro" element={<RegistroUsuario />} />
-          <Route path='/admin/registro' element={<RegistroProducto />}></Route>
+          <Route path='/admin/registro' element={<RegistroProducto />} />
           <Route path="/login" element={<LoginUsuario />} />
           <Route path="*" element={<Error404 />} />
+          <Route path="/admin/lista" element={<ListaProductosAdmin />} />
         </Routes>
       </main>
       <Footer />

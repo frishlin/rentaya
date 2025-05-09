@@ -1,0 +1,35 @@
+.admin-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th, .admin-table td {
+    border: 1px solid #ffc107;
+    padding: 10px;
+    text-align: center;
+}
+
+.admin-table td img {
+    border-radius: 8px;
+    max-width: 100px;
+}
+
+.admin-table button {
+    background-color: transparent;
+    color: #ffc107;
+    border: 1px solid #ffc107;
+    padding: 6px 12px;
+}
+
+.admin-table button:hover {
+    background-color: #ffc107;
+    color: #1a1a1a;
+}
