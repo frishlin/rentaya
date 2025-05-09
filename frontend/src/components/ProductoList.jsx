@@ -9,14 +9,19 @@ const ProductoList = ({ filtrosBusqueda }) => {
       try {
         const response = await fetch('http://localhost:8080/productos');
         const data = await response.json();
-        setProductos(data);
+        if(!filtrosBusqueda.ciudad) {
+          const aleatorios = [...data].sort(() => 0.5 - Math.random()).slice(0, 10);
+          setProductos(aleatorios);
+        } else {
+          setProductos(data);
+        }
       } catch (error) {
         console.error('Error al obtener los productos:', error);
       }
     };
 
     fetchProductos();
-  }, []);
+  }, [filtrosBusqueda.ciudad]);
 
   const ciudadBuscada = filtrosBusqueda?.ciudad.toLowerCase() || '';
   
