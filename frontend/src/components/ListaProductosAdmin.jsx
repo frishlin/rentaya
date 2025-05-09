@@ -48,7 +48,7 @@ const ListaProductosAdmin = () => {
         <section className='admin-container'>
             <h2>Listado de productos</h2>
             {mensaje && <p className='mensaje'>{mensaje}</p> }
-            <Link to='/admin/registro'>
+            <Link to='/admin/lista'>
                 <button className='boton-volver'>Registrar nuevo vehículo</button>
             </Link>
             <table className='admin-table'>
@@ -69,8 +69,8 @@ const ListaProductosAdmin = () => {
                             <td>{producto.descripcion}</td>
                             <td><img src={producto.imagenUrl} alt={producto.nombre} width="100"/></td>
                             <td>
-                                <button className='icon-btn' onClick={() => eliminarProducto(producto.id)}>🗑️</button>
-                                <button className='icon-btn' onClick={() => editarProducto(producto.id)}>✏️</button>
+                                <button className='icon-btn eliminar-btn' onClick={() => eliminarProducto(producto.id)}>🗑️</button>
+                                <button className='icon-btn editar-btn' onClick={() => editarProducto(producto.id)}>✏️</button>
                             </td>
                         </tr>
                     ))}

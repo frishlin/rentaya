@@ -45,7 +45,7 @@ const App = () => {
           <Route path="/login" element={<LoginUsuario />} />
           <Route path="*" element={<Error404 />} />
           <Route path="/admin/lista" element={<ListaProductosAdmin />} />
-          <Route path='/editar/id' element={<EditarProducto />} />
+          <Route path='/editar/:id' element={<EditarProducto />} />
         </Routes>
       </main>
       <Footer />
