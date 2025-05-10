@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ProductoList.css';
+import { Link } from 'react-router-dom';
 
 const ProductoList = ({ filtrosBusqueda }) => {
   const [productos, setProductos] = useState([]);
@@ -56,11 +57,11 @@ const ProductoList = ({ filtrosBusqueda }) => {
       </h2>
       <div className="productos-grid">
         {productosFiltrados.map(producto => (
-          <div className="producto-card" key={producto.id}>
+          <Link to={`/producto/${producto.id}`} key={producto.id} className='producto-card'>
             <img src={producto.imagenUrl} alt={producto.nombre} />
             <h3>{producto.nombre}</h3>
             <p>{producto.descripcion}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
