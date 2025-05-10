@@ -10,9 +10,12 @@ const ProductoList = ({ filtrosBusqueda }) => {
       try {
         const response = await fetch('http://localhost:8080/productos');
         const data = await response.json();
+
         if(!filtrosBusqueda.ciudad) {
-          const aleatorios = [...data].sort(() => 0.5 - Math.random()).slice(0, 10);
+          const productosUnicos = Array.from(new Map(data.map(p => [p.id, p])).values());
+          const aleatorios = productosUnicos.sort(() => 0.5 - Math.random()).slice(0, 10);
           setProductos(aleatorios);
+          
         } else {
           setProductos(data);
         }
