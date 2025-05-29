@@ -2,6 +2,7 @@ package com.rentaya.backend.controller;
 
 import com.rentaya.backend.model.Producto;
 import com.rentaya.backend.repository.ProductoRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,14 +38,15 @@ public class ProductoController {
 
     //Para modificar
     @PutMapping("/{id}")
-    public Producto actualizarProducto(@PathVariable Long id, @RequestBody Producto productoActualizado) {
+    public ResponseEntity<Producto> actualizarProducto(@PathVariable Long id, @RequestBody Producto productoNuevo) {
         return productoRepository.findById(id)
                 .map(producto -> {
-                    producto.setNombre(productoActualizado.getNombre());
-                    producto.setDescripcion(productoActualizado.getDescripcion());
-                    producto.setImagenUrl(productoActualizado.getImagenUrl());
-                    return productoRepository.save(producto);
+                    producto.setNombre(productoNuevo.getNombre());
+                    producto.setDescripcion(productoNuevo.getDescripcion());
+                    producto.setImagenUrl(productoNuevo.getImagenUrl());
+                    producto.setCategoria(productoNuevo.getCategoria());
+                    return ResponseEntity.ok(productoRepository.save(producto));
                 })
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado con id " + id));
+                .orElse(ResponseEntity.notFound().build());
     }
 }
