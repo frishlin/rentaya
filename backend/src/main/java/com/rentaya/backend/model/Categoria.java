@@ -1,43 +1,35 @@
 package com.rentaya.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-public class Producto {
+public class Categoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String nombre;
+    private String titulo;
     private String descripcion;
-
-    @Column(name = "imagen_url")
     private String imagenUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("categoria")
+    private List<Producto> productos;
 
-    public Categoria getCategoria() {
-        return categoria;
+    public Categoria() {
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    // Constructor vacío
-    public Producto() {}
-
-    // Constructor con todos los campos
-    public Producto(Long id, String nombre, String descripcion, String imagenUrl) {
+    public Categoria(Long id, String titulo, String descripcion, String imagenUrl, List<Producto> productos) {
         this.id = id;
-        this.nombre = nombre;
+        this.titulo = titulo;
         this.descripcion = descripcion;
         this.imagenUrl = imagenUrl;
+        this.productos = productos;
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -46,12 +38,12 @@ public class Producto {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
@@ -68,5 +60,13 @@ public class Producto {
 
     public void setImagenUrl(String imagenUrl) {
         this.imagenUrl = imagenUrl;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 }

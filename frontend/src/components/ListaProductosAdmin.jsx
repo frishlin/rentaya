@@ -51,6 +51,9 @@ const ListaProductosAdmin = () => {
             <Link to='/admin/registro'>
                 <button className='boton-volver'>Registrar nuevo vehículo</button>
             </Link>
+            <Link to='/admin/categoria'>
+                <button className='boton-volver'>Agregar nueva categoría</button>
+            </Link>
             <table className='admin-table'>
                 <thead>
                     <tr>

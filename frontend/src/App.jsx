@@ -11,6 +11,7 @@ import RegistroProducto from './components/RegistroProducto';
 import ListaProductosAdmin from './components/ListaProductosAdmin';
 import EditarProducto from './components/EditarProducto';
 import DetalleProducto from './components/DetalleProducto';
+import AgregarCategoria from './components/AgregarCategoria';
 
 const App = () => {
   const [filtrosBusqueda, setFiltrosBusqueda] = useState({
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/admin/lista" element={<ListaProductosAdmin />} />
           <Route path='/editar/:id' element={<EditarProducto />} />
           <Route path='/producto/:id' element={<DetalleProducto />} />
+          <Route path='/admin/categoria' element={<AgregarCategoria />} />
 
         </Routes>
       </main>
