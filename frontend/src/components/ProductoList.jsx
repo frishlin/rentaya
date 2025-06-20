@@ -10,11 +10,15 @@ const ProductoList = ({ filtrosBusqueda }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [resProductos, resCategorias] = await Promise.all([
-          fetch('http://localhost:8080/productos'),
-          fetch('http://localhost:8080/categorias')
 
+        const urlProductos = filtrosBusqueda.ciudad ? `http://localhost:8080/productos/buscar?nombre=${encodeURIComponent(filtrosBusqueda.ciudad)}` : 'http://localhost:8080/productos';
+
+        const [resProductos, resCategorias] = await Promise.all([
+          fetch(urlProductos),
+          fetch('http://localhost:8080/categorias')
         ]);
+
+
         const dataProductos = await resProductos.json();
         const dataCategorias = await resCategorias.json();
         setCategorias(dataCategorias);
@@ -38,8 +42,7 @@ const ProductoList = ({ filtrosBusqueda }) => {
   const ciudadBuscada = filtrosBusqueda?.ciudad.toLowerCase() || '';
   
   const productosFiltrados = productos.filter(producto =>
-    producto.nombre.toLowerCase().includes(ciudadBuscada) &&
-    (categoriaSeleccionada === '' || producto.categoria?.id === parseInt(categoriaSeleccionada))
+   categoriaSeleccionada === '' || producto.categoria?.id === parseInt(categoriaSeleccionada)
   );
 
   if (productos.length === 0) {

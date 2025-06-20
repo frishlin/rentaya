@@ -49,4 +49,13 @@ public class ProductoController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/buscar")
+    public  List<Producto> buscarProductos(@RequestParam(required = false) String nombre) {
+        if(nombre != null && !nombre.isEmpty()) {
+            return productoRepository.findByNombreContainingIgnoreCase(nombre);
+        } else {
+            return productoRepository.findAll();
+        }
+    }
 }
