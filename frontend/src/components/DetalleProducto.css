@@ -14,3 +14,32 @@
     border-radius: 8px;
     margin: 1rem 0;
 }
+
+.formulario-reserva {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*gap: 1rem;*/
+    margin-top: 2rem;
+    color: white;
+    font-weight: bold;
+}
+
+.formulario-reserva input[type="date"] {
+    width: 200px;
+    padding: 6px;
+    margin: 5px 0 15px 0;
+    font-size: 0.9rem;
+    border-radius: 6px;
+}
+
+.formulario-reserva label {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario-reserva button:hover {
+    background-color: #ffc107;
+    color: #000;
+    border: 2px solid #ffc107;;
+}
