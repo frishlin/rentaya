@@ -8,23 +8,22 @@ const DetalleProducto = () => {
     const [mensaje, setMensaje] = useState('');
 
     useEffect(() => {
-        const fetchProductos = async () => {
+        const fetchProducto = async () => {
             try {
-                const response = await fetch('http://localhost:8080/productos');
-                const data = await response.json();
-                const encontrado = data.find(p => p.id === parseInt(id));
-                if (encontrado) {
-                    setProducto(encontrado);
-                } else {
+                const response = await fetch(`http://localhost:8080/productos/${id}`);
+                if (!response.ok) {
                     setMensaje("El producto no existe");
+                    return;
                 }
+                const data = await response.json();
+                setProducto(data);
             }
             catch (error) {
                 setMensaje('Error al cargar los datos del producto');
             }
         };
 
-        fetchProductos();
+        fetchProducto();
     }, [id]);
 
     if (mensaje) {
