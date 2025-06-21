@@ -42,4 +42,13 @@ public class ReservaController {
     public List<Reserva> obtenerReservasPorUsuario(@PathVariable String email) {
         return reservaRepository.findByUsuarioEmail(email);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> cancelarReserva(@PathVariable Long id) {
+        if (!reservaRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        reservaRepository.deleteById(id);
+        return ResponseEntity.ok("Reserva cancelada correctamente");
+    }
 }
