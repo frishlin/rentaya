@@ -1,5 +1,6 @@
 package com.rentaya.backend.controller;
 
+import com.rentaya.backend.model.Producto;
 import com.rentaya.backend.model.Reserva;
 import com.rentaya.backend.repository.ReservaRepository;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +36,10 @@ public class ReservaController {
         }
         Reserva nuevaReserva = reservaRepository.save(reserva);
         return ResponseEntity.ok(nuevaReserva);
+    }
+
+    @GetMapping("/usuario/{email}")
+    public List<Reserva> obtenerReservasPorUsuario(@PathVariable String email) {
+        return reservaRepository.findByUsuarioEmail(email);
     }
 }

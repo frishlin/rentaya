@@ -16,6 +16,10 @@ public class Reserva {
     @JoinColumn(name = "producto_id")
     private Producto producto;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     public Reserva() {
     }
 
@@ -56,5 +60,13 @@ public class Reserva {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
