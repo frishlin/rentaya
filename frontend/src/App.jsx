@@ -43,15 +43,16 @@ const App = () => {
             </>
           } />
 
-          <Route path="/registro" element={<RegistroUsuario />} />
+          <Route path='/registro' element={<RegistroUsuario />} />
           <Route path='/admin/registro' element={<RegistroProducto />} />
-          <Route path="/login" element={<LoginUsuario />} />
-          <Route path="*" element={<Error404 />} />
-          <Route path="/admin/lista" element={<ListaProductosAdmin />} />
+          <Route path='/login' element={<LoginUsuario />} />
+          <Route path='*' element={<Error404 />} />
+          <Route path='/admin/lista' element={<ListaProductosAdmin />} />
           <Route path='/editar/:id' element={<EditarProducto />} />
           <Route path='/producto/:id' element={<DetalleProducto />} />
           <Route path='/admin/categoria' element={<AgregarCategoria />} />
           <Route path="/mis-reservas" element={<MisReservas />} />
+          <Route path="/detalle/:id" element={<DetalleProducto />} />
 
 
         </Routes>

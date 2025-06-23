@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './DetalleProducto.css'
 
 const DetalleProducto = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
+
     const [producto, setProducto] = useState(null);
     const [mensaje, setMensaje] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
@@ -13,10 +16,35 @@ const DetalleProducto = () => {
     const [reservasOcupadas, setReservasocupadas] = useState([]);
 
     useEffect(() => {
+        const mensajeAlerta = localStorage.getItem('mensajeReserva');
+        if (mensajeAlerta) {
+            setMensaje(mensajeAlerta);
+            localStorage.removeItem('mensajeReserva');
+        }
+
         const usuarioGuardado = localStorage.getItem('usuario');
         if (usuarioGuardado) {
             setUsuario(JSON.parse(usuarioGuardado));
         }
+
+    }, []);
+
+    useEffect(() => {
+        const fechaInicioGuardada = localStorage.getItem('fecha-inicio-reserva');
+        const fechaFinGuardada = localStorage.getItem('fecha-fin-reserva');
+
+        if (fechaInicioGuardada) {
+            setFechaInicio(fechaInicioGuardada);
+            localStorage.removeItem('fecha-inicio-reserva');
+        }
+
+        if (fechaFinGuardada) {
+            setFechaFin(fechaFinGuardada);
+            localStorage.removeItem('fecha-fin-reserva');
+        }
+
+        console.log("Fecha recuperada del localStorage:", fechaInicioGuardada, fechaFinGuardada);
+
     }, []);
 
     useEffect(() => {
@@ -81,7 +109,7 @@ const DetalleProducto = () => {
             fechaInicio,
             fechaFin,
             producto: { id: producto.id },
-            usuario: { id: usuario.id } 
+            usuario: { id: usuario.id }
         };
 
         try {
@@ -143,7 +171,17 @@ const DetalleProducto = () => {
                     <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} />
                     <label>Fecha de Fin:</label>
                     <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
-                    <button onClick={reservarProducto}>Reservar</button>
+                    <button onClick={() => {
+                        if (!usuario) {
+                            localStorage.setItem('mensaje-login', 'Para reservar, necesitas iniciar sesión.');
+                            localStorage.setItem('ruta-reserva', `/detalle/${id}`);
+                            if (fechaInicio) localStorage.setItem('fecha-inicio-reserva', fechaInicio);
+                            if (fechaFin) localStorage.setItem('fecha-fin-reserva', fechaFin);
+                            navigate('/login');
+                        } else {
+                            reservarProducto();
+                        }
+                    }}>Reservar</button>
                     {confirmacion && <p className="mensaje">{confirmacion}</p>}
                 </div>
             </section>

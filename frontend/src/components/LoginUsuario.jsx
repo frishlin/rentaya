@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './RegistroUsuario.css';
 
@@ -6,6 +6,14 @@ const LoginUsuario = () => {
     const [datos, setDatos] = useState({ email: '', contrasenia: '' });
     const [mensaje, setMensaje] = useState('');
     const navigate = useNavigate();
+          
+    useEffect(() => {
+    const mensajeGuardado = localStorage.getItem('mensaje-login');
+    if (mensajeGuardado) {
+        setMensaje(mensajeGuardado);
+        localStorage.removeItem('mensaje-login');
+    }
+}, []);
 
     const handleChange = (e) => {
         setDatos({ ...datos, [e.target.name]: e.target.value });
@@ -30,7 +38,13 @@ const LoginUsuario = () => {
                 setMensaje("¡Hola!");
                 setTimeout(() => {
                     window.dispatchEvent(new Event("usuario-actualizado"));
-                    navigate('/');
+                    const rutaReserva = localStorage.getItem('ruta-reserva');
+                    if(rutaReserva) {
+                        localStorage.removeItem('ruta-reserva');
+                        navigate(rutaReserva);
+                    } else {
+                        navigate('/');
+                    }  
                 }, 500);
             } else {
                 setMensaje(typeof resultado === 'string' ? resultado : 'Error al iniciar sesión.');
