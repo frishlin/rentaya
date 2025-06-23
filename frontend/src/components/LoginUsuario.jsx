@@ -3,32 +3,37 @@ import { useNavigate } from 'react-router-dom';
 import './RegistroUsuario.css';
 
 const LoginUsuario = () => {
-    const [datos, setDatos] = useState({email: '', contrasenia: '' });
+    const [datos, setDatos] = useState({ email: '', contrasenia: '' });
     const [mensaje, setMensaje] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        setDatos({...datos, [e.target.name]: e.target.value});
+        setDatos({ ...datos, [e.target.name]: e.target.value });
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const respuesta = await fetch('http://localhost:8080/usuarios/login', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datos)
             });
-            const resultado = await respuesta.text();
+            const resultado = await respuesta.json();
             if(respuesta.ok) {
-                localStorage.setItem('usuario', JSON.stringify({email: datos.email}));
-                setMensaje(`${resultado}`);
+                const usuario = resultado;
+                const usuarioSinContrasenia = {
+                    id: usuario.id,
+                    nombre: usuario.nombre,
+                    email: usuario.email
+                };
+                localStorage.setItem('usuario', JSON.stringify(usuarioSinContrasenia));
+                setMensaje("¡Hola!");
                 setTimeout(() => {
                     window.dispatchEvent(new Event("usuario-actualizado"));
                     navigate('/');
-                    
                 }, 500);
             } else {
-                setMensaje(`${resultado}`);
+                setMensaje(typeof resultado === 'string' ? resultado : 'Error al iniciar sesión.');
             }
         } catch(error) {
             setMensaje("Error de red: no se pudo conectar con el servidor.");

@@ -38,7 +38,7 @@ public class UsuarioController {
         if(usuarioOptional.isPresent()) {
             Usuario usuario = usuarioOptional.get();
             if(usuario.getContrasenia().equals(datosLogin.getContrasenia())) {
-                return ResponseEntity.ok("¡Bienvenido a tu sesión!");
+                return ResponseEntity.ok(usuario);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("La contraseña ingresada es incorrecta.");
             }

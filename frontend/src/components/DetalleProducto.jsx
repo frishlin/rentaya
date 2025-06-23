@@ -8,7 +8,16 @@ const DetalleProducto = () => {
     const [mensaje, setMensaje] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaFin, setFechaFin] = useState('');
+    const [usuario, setUsuario] = useState(null);
     const [confirmacion, setConfirmacion] = useState('');
+    const [reservasOcupadas, setReservasocupadas] = useState([]);
+
+    useEffect(() => {
+        const usuarioGuardado = localStorage.getItem('usuario');
+        if (usuarioGuardado) {
+            setUsuario(JSON.parse(usuarioGuardado));
+        }
+    }, []);
 
     useEffect(() => {
         const fetchProducto = async () => {
@@ -20,18 +29,35 @@ const DetalleProducto = () => {
                 }
                 const data = await response.json();
                 setProducto(data);
-            }
-            catch (error) {
+            } catch (error) {
                 setMensaje('Error al cargar los datos del producto');
             }
         };
 
+        const fetchReservas = async () => {
+            try {
+                const res = await fetch(`http://localhost:8080/reservas/producto/${id}`);
+                if (!res.ok) throw new Error("Error al cargar las reservas");
+                const data = await res.json();
+                setReservasocupadas(data);
+            } catch (error) {
+                console.log("No fue posible cargar las fechas ocupadas");
+            }
+        };
+
         fetchProducto();
+        fetchReservas();
     }, [id]);
 
-
     const reservarProducto = async () => {
-        if(!fechaInicio || !fechaFin) {
+        setConfirmacion('');
+
+        if (!usuario) {
+            setConfirmacion("Debes iniciar sesión para hacer una reserva.");
+            return;
+        }
+
+        if (!fechaInicio || !fechaFin) {
             setConfirmacion("Debes seleccionar tanto fecha de inicio, como fecha de fin");
             return;
         }
@@ -41,18 +67,21 @@ const DetalleProducto = () => {
         const hoy = new Date();
         hoy.setHours(0, 0, 0, 0);
 
-        if(inicio >= fin) {
+        if (inicio >= fin) {
             setConfirmacion("La fecha de inicio debe ser anterior a la fecha de fin");
             return;
         }
-        
-        if(inicio < hoy) {
-            setConfirmacion("La fecha de inicio debe ser anterior a la fecha de hoy");
+
+        if (inicio < hoy) {
+            setConfirmacion("La fecha de inicio no puede ser anterior a hoy");
             return;
         }
 
         const reserva = {
-            fechaInicio, fechaFin, producto: {id: producto.id}
+            fechaInicio,
+            fechaFin,
+            producto: { id: producto.id },
+            usuario: { id: usuario.id } 
         };
 
         try {
@@ -63,14 +92,15 @@ const DetalleProducto = () => {
                 },
                 body: JSON.stringify(reserva)
             });
-            if(!response.ok) {
+
+            if (!response.ok) {
                 throw new Error("No se pudo guardar la reserva");
             }
+
             setConfirmacion("Reserva realizada exitosamente.");
             setFechaInicio('');
             setFechaFin('');
-        }
-        catch (error) {
+        } catch (error) {
             setConfirmacion("Ha ocurrido un error al hacer la reserva");
         }
     };
@@ -85,26 +115,39 @@ const DetalleProducto = () => {
 
     return (
         <>
-            <h2 className="titulo-productos" style={{textAlign:'center', marginTop:'2rem', color:'#ffffff'}}>
+            <h2 className="titulo-productos" style={{ textAlign: 'center', marginTop: '2rem', color: '#ffffff' }}>
                 Detalle de Producto
             </h2>
             <section className="detalle-container">
                 <h2>{producto.nombre}</h2>
                 <img src={producto.imagenUrl} alt={producto.nombre} className="detalle-img" />
                 <p>{producto.descripcion}</p>
+
+                <div style={{ marginTop: '2rem' }}>
+                    <h3>Fechas ya reservadas:</h3>
+                    {reservasOcupadas.length === 0 ? (
+                        <p>Este vehículo aún no tiene reservas.</p>
+                    ) : (
+                        <ul>
+                            {reservasOcupadas.map(res => (
+                                <li key={res.id}>
+                                    Del <strong>{res.fechaInicio}</strong> al <strong>{res.fechaFin}</strong>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
                 <div className="formulario-reserva">
                     <label>Fecha de Inicio:</label>
                     <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} />
-                    <label >Fecha de fin:</label>
+                    <label>Fecha de Fin:</label>
                     <input type="date" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
                     <button onClick={reservarProducto}>Reservar</button>
-                    {confirmacion && <p className= "mensaje">{confirmacion}</p> }
-                    
+                    {confirmacion && <p className="mensaje">{confirmacion}</p>}
                 </div>
-
             </section>
         </>
-
     );
 };
 

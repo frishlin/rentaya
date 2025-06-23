@@ -1,42 +1,48 @@
-import React, {useState} from "react";
-import './RegistroUsuario.css'
+import React, { useState } from "react";
+import './RegistroUsuario.css';
 
 const RegistroUsuario = () => {
-    const[usuario, setUsuario] = useState({
+    const [usuario, setUsuario] = useState({
         nombre: '',
         email: '',
         contrasenia: ''
     });
 
-    const[mensaje, setMensaje] = useState('');
+    const [mensaje, setMensaje] = useState('');
+
     const handleChange = (e) => {
-        setUsuario({...usuario, [e.target.name]: e.target.value});
+        setUsuario({ ...usuario, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            const respuesta = await fetch('http://localhost:8080/usuarios', {                              
+            console.log("Datos enviados al backend:", usuario);
+
+            const respuesta = await fetch('http://localhost:8080/usuarios', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(usuario)
             });
 
-            const data = await respuesta.text();
-
-            if(respuesta.ok) {
-                setMensaje('El usuario ha sido registrado exitosamente.');
-                setUsuario({nombre: '', email: '', contrasenia: ''});
-            } else {
-                setMensaje(`Error: ${data}`);
+            if (!respuesta.ok) {
+                const texto = await respuesta.text();
+                setMensaje(`Error: ${texto}`);
+                return;
             }
-        } catch(error) {
-            setMensaje('Error de red: No se pudo conectar con el servidor');
+
+            const data = await respuesta.json();
+            console.log("Respuesta del backend:", data);
+            setMensaje("El usuario ha sido registrado exitosamente.");
+            setUsuario({ nombre: '', email: '', contrasenia: '' });
+
+        } catch (error) {
+            console.error("Error de red:", error);
+            setMensaje("Error de red: No se pudo conectar con el servidor.");
         }
     };
 
-    return(
+    return (
         <section className="registro-container">
             <h2>Registro de Usuario</h2>
             <form className="registro-form" onSubmit={handleSubmit}>
