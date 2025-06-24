@@ -10,10 +10,19 @@ const ProductoList = ({ filtrosBusqueda }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setCargando(true); // ← Para mostrar “Cargando...”
       try {
-        const urlProductos = filtrosBusqueda.ciudad
-          ? `http://localhost:8080/productos/buscar?nombre=${encodeURIComponent(filtrosBusqueda.ciudad)}`
-          : 'http://localhost:8080/productos';
+        let urlProductos = 'http://localhost:8080/productos';
+
+        const { ciudad, fechaInicio, fechaFin } = filtrosBusqueda;
+
+        if (fechaInicio && fechaFin) {
+          // Si hay fechas, usar endpoint de productos disponibles
+          urlProductos = `http://localhost:8080/productos/disponibles?inicio=${fechaInicio}&fin=${fechaFin}`;
+        } else if (ciudad && ciudad.trim() !== '') {
+          // Si no hay fechas pero sí ciudad
+          urlProductos = `http://localhost:8080/productos/buscar?nombre=${encodeURIComponent(ciudad)}`;
+        }
 
         const [resProductos, resCategorias] = await Promise.all([
           fetch(urlProductos),
@@ -24,7 +33,8 @@ const ProductoList = ({ filtrosBusqueda }) => {
         const dataCategorias = await resCategorias.json();
         setCategorias(dataCategorias);
 
-        if (!filtrosBusqueda.ciudad) {
+        if (!fechaInicio && !fechaFin && !ciudad) {
+          // Mostrar aleatorios solo si no hay filtros
           const productosUnicos = Array.from(new Map(dataProductos.map(p => [p.id, p])).values());
           const aleatorios = productosUnicos.sort(() => 0.5 - Math.random()).slice(0, 10);
           setProductos(aleatorios);
@@ -34,22 +44,21 @@ const ProductoList = ({ filtrosBusqueda }) => {
       } catch (error) {
         console.error('Error al obtener los productos o categorías:', error);
       } finally {
-        setCargando(false); // ⬅️ Para que deje de mostrar “Cargando...”
+        setCargando(false);
       }
     };
 
     fetchData();
   }, [filtrosBusqueda]);
 
-  const ciudadBuscada = filtrosBusqueda?.ciudad.toLowerCase() || '';
+  // Reiniciar categoría cuando cambian los filtros
+  useEffect(() => {
+    setCategoriaSeleccionada('');
+  }, [filtrosBusqueda]);
 
   const productosFiltrados = productos.filter(producto =>
     categoriaSeleccionada === '' || producto.categoria?.id === parseInt(categoriaSeleccionada)
   );
-
-  useEffect(() => {
-  setCategoriaSeleccionada(''); // reinicia también la categoría
-}, [filtrosBusqueda]);
 
   return (
     <section className="productos-container">

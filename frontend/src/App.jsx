@@ -13,6 +13,7 @@ import EditarProducto from './components/EditarProducto';
 import DetalleProducto from './components/DetalleProducto';
 import AgregarCategoria from './components/AgregarCategoria';
 import MisReservas from './components/MisReservas';
+import Favoritos from './components/Favoritos';
 
 const App = () => {
   const [filtrosBusqueda, setFiltrosBusqueda] = useState({
@@ -53,6 +54,7 @@ const App = () => {
           <Route path='/admin/categoria' element={<AgregarCategoria />} />
           <Route path="/mis-reservas" element={<MisReservas />} />
           <Route path="/detalle/:id" element={<DetalleProducto />} />
+          <Route path="/favoritos" element={<Favoritos />} />
 
 
         </Routes>

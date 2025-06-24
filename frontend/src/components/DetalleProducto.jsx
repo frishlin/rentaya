@@ -14,6 +14,48 @@ const DetalleProducto = () => {
     const [usuario, setUsuario] = useState(null);
     const [confirmacion, setConfirmacion] = useState('');
     const [reservasOcupadas, setReservasocupadas] = useState([]);
+    const [esFavorito, setEsFavorito] = useState(false);
+
+
+    useEffect(() => {
+        const usuarioGuardado = localStorage.getItem('usuario');
+        if (usuarioGuardado) {
+            const usuarioObj = JSON.parse(usuarioGuardado);
+            setUsuario(usuarioObj);
+
+            const claveFavoritos = `favoritos_${usuarioObj.email}`;
+            const favoritosGuardados = JSON.parse(localStorage.getItem(claveFavoritos)) || [];
+            setEsFavorito(favoritosGuardados.includes(parseInt(id)));
+        }
+
+
+
+    }, [id]);
+
+    const alternarFavoritos = () => {
+        const usuarioGuardado = localStorage.getItem('usuario');
+        if (!usuarioGuardado) {
+            localStorage.setItem('mensaje-login', 'Inicia sesión para agregar a tu lista de favoritos')
+            localStorage.setItem('ruta-reserva', `/detalle/${id}`);
+            navigate('/login');
+            return;
+        }
+
+        const usuarioObj = JSON.parse(usuarioGuardado);
+        const claveFavoritos = `favoritos_${usuarioObj.email}`;
+        const favoritosGuardados = JSON.parse(localStorage.getItem(claveFavoritos)) || [];
+        let nuevosFavoritos;
+
+        if (favoritosGuardados.includes(parseInt(id))) {
+            nuevosFavoritos = favoritosGuardados.filter(favId => favId !== parseInt(id));
+            setEsFavorito(false);
+        } else {
+            nuevosFavoritos = [...favoritosGuardados, parseInt(id)];
+            setEsFavorito(true);
+        }
+
+        localStorage.setItem(claveFavoritos, JSON.stringify(nuevosFavoritos));
+    };
 
     useEffect(() => {
         const mensajeAlerta = localStorage.getItem('mensajeReserva');
@@ -182,6 +224,10 @@ const DetalleProducto = () => {
                             reservarProducto();
                         }
                     }}>Reservar</button>
+
+                    <button className="favorito-btn" style={{ marginTop: '1rem' }} onClick={alternarFavoritos}>
+                        {esFavorito ? 'Eliminar de favoritos ♥️' : 'Agregar a favoritos 🤍'}
+                    </button>
                     {confirmacion && <p className="mensaje">{confirmacion}</p>}
                 </div>
             </section>

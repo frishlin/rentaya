@@ -39,6 +39,7 @@ const Header = ({onReset}) => {
                     <li><Link to="/">Contacto</Link></li>
 
 
+
                     {!usuario && (
                         <>
                             <li><Link to="/registro">Regístrate</Link></li>
@@ -49,6 +50,7 @@ const Header = ({onReset}) => {
                     {usuario && (
                         <>
                             <li><Link to="/mis-reservas">Mis reservas</Link></li>
+                            <li><Link to="/favoritos">Favoritos</Link></li>
                             <li>Hola, {usuario.email}</li>
                             <li><button className='boton-cerrar' onClick={cerrarSesion}>Cerrar sesión</button></li>
                         </>
