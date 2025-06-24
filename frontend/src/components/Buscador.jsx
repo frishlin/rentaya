@@ -14,6 +14,9 @@ const Buscador = ({ onBuscar, filtros }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!ciudad.trim() && !fechaInicio && !fechaFin) {
+        alert("Debes ingresar un nombre o rango de fechas para obtener resultados");
+    }
     onBuscar({ ciudad, fechaInicio, fechaFin });
   };
 

@@ -15,14 +15,18 @@ public class Usuario {
 
     private String contrasenia;
 
+    @Column(nullable = false)
+    private String rol = "USER";
+
     public Usuario() {
     }
 
-    public Usuario(Long id, String nombre, String email, String contrasenia) {
+    public Usuario(Long id, String nombre, String email, String contrasenia, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.contrasenia = contrasenia;
+        this.rol = rol;
     }
 
     public Long getId() {
@@ -55,5 +59,13 @@ public class Usuario {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

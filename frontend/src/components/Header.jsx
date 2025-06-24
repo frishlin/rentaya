@@ -3,9 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Header.css'
 import logo from '../assets/logo-rentaya-amarillo.png'
 
-const Header = ({onReset}) => {
-    const [usuario, setUsuario] = useState(null);
-    const navigate = useNavigate();
+const Header = ({ onReset }) => {
+    const [usuario, setUsuario] = useState(() => {
+        const guardado = localStorage.getItem('usuario');
+        return guardado ? JSON.parse(guardado) : null;
+    });
 
     useEffect(() => {
         const cargarUsuario = () => {
@@ -13,12 +15,12 @@ const Header = ({onReset}) => {
             setUsuario(usuarioGuardado ? JSON.parse(usuarioGuardado) : null);
         };
         cargarUsuario();
-        
+
         window.addEventListener("usuario-actualizado", cargarUsuario);
-        return() => {
+        return () => {
             window.removeEventListener("usuario-actualizado", cargarUsuario);
         };
-        
+
     }, []);
 
     const cerrarSesion = () => {
@@ -33,7 +35,11 @@ const Header = ({onReset}) => {
             <img src={logo} alt="Logo RentaYa" className="logo-header" />
             <nav className="nav">
                 <ul>
-                    <li><Link to="/admin/lista">Panel Administrador</Link></li>
+                    {usuario?.rol === 'ADMIN' && (
+                        <li><Link to="/admin/lista">Panel Administrador</Link></li>
+                    )}
+
+
                     <li><Link to="/" onClick={onReset}>Inicio</Link></li>
                     <li><Link to="/" onClick={onReset}>Vehículos</Link></li>
                     <li><Link to="/">Contacto</Link></li>

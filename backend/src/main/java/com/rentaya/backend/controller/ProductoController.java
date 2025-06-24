@@ -74,4 +74,5 @@ public class ProductoController {
         List<Producto> disponibles = productoService.obtenerProductosDisponibles(inicio, fin);
         return ResponseEntity.ok(disponibles);
     }
+
 }

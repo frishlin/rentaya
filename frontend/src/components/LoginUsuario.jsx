@@ -32,7 +32,8 @@ const LoginUsuario = () => {
                 const usuarioSinContrasenia = {
                     id: usuario.id,
                     nombre: usuario.nombre,
-                    email: usuario.email
+                    email: usuario.email,
+                    rol: usuario.rol
                 };
                 localStorage.setItem('usuario', JSON.stringify(usuarioSinContrasenia));
                 setMensaje("¡Hola!");
