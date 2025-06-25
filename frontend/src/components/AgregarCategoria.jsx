@@ -46,16 +46,29 @@ const AgregarCategoria = () => {
     };
 
     const eliminarCategoria = async (id) => {
-        const confirmar = window.confirm("¿Deseas eliminar esta categoría");
-        if (!confirmar) return;
+        if (!window.confirm("¿Deseas eliminar esta categoría?")) return;
+
         try {
             const res = await fetch(`http://localhost:8080/categorias/${id}`, {
                 method: 'DELETE'
             });
 
             if (res.ok) {
-                setCategorias(categorias.filter(cat => cat.id !== id));
+                setCategorias(prev => prev.filter(cat => cat.id !== id));
                 setMensaje('La categoría ha sido eliminada exitosamente');
+            } else if (res.status === 409) {
+                const confirmarForzar = window.confirm("La categoría tiene productos asociados. ¿Deseas eliminarla de todos modos?");
+                if (confirmarForzar) {
+                    const resForzado = await fetch(`http://localhost:8080/categorias/${id}?forzar=true`, {
+                        method: 'DELETE'
+                    });
+                    if (resForzado.ok) {
+                        setCategorias(prev => prev.filter(cat => cat.id !== id));
+                        setMensaje('La categoría ha sido eliminada forzadamente');
+                    } else {
+                        setMensaje('No se pudo eliminar la categoría de todos modos');
+                    }
+                }
             } else {
                 setMensaje('Error al eliminar la categoría');
             }
@@ -63,6 +76,7 @@ const AgregarCategoria = () => {
             setMensaje('Error de conexión');
         }
     };
+
 
     return (
         <section className="registro-container">
