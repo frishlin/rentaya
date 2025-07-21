@@ -44,4 +44,5 @@ Se debe asegurar de que el backend esté corriendo antes de iniciar el frontend.
 2. Instalar las dependencias ejecutando el comando `npm install`.
 3. Iniciar el servidor con el comando `npm run dev`.
 
-Esto último deberá abrir el frontend en la URL: http://localhost:5173
+Esto último debe abrir el frontend en la URL: http://localhost:5173
+
