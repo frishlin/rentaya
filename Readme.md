@@ -2,7 +2,7 @@
 
 RentaYa es un sistema web de renta de autos. 
 
-Este sistema pemite a usuarios explorar vehículos disponibles para renta. Permite el registro de usuarios para realizar reservas y, cuando existe, permite acceder al historial de reservas y favoritos. Además, incluye un panel de Administrador, que solo es visible para los usuarios con el rol de Administrador (ADMIN), que permite gestionar productos y categorías. 
+Este sistema pemite a usuarios explorar vehículos disponibles para renta. Permite el registro de usuarios para realizar reservas y, cuando existe, permite acceder al historial de reservas y favoritos. Además, incluye un panel de Administrador, que solo es visible para los usuarios con el este rol (ADMIN), que permite gestionar productos y categorías. 
 
 RentaYa se desarrolló en 4 sprints, los cuales se describen brevemente:
 * Sprint 1: Estructura inicial y gestión de productos. Se diseñó la interfaz base que incluyó encabezado, cuerpo y pie de página; se creó el panel de Administración y se implementó el registro, visualización y eliminación de productos.
