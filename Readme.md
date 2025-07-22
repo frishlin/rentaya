@@ -18,6 +18,7 @@ RentaYa se desarrolló en 4 sprints, los cuales se describen brevemente:
 
 ## Variables de entorno
 Antes de ejecutar el backend, se debe asegurar de configurar las siguientes propiedades en el archivo `application.properties`:
+
 `spring.datasource.url=jdbc:mysql://localhost:3306/rentaya`
 `spring.datasource.username=TU_USUARIO`
 `spring.datasource.password=TU_PASSWORD`
