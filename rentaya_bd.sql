@@ -30,7 +30,7 @@ CREATE TABLE `categoria` (
   `imagen_url` varchar(255) DEFAULT NULL,
   `titulo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `producto` (
   PRIMARY KEY (`id`),
   KEY `FKodqr7965ok9rwquj1utiamt0m` (`categoria_id`),
   CONSTRAINT `FKodqr7965ok9rwquj1utiamt0m` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,9 +115,10 @@ CREATE TABLE `usuario` (
   `nombre` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `contrasenia` varchar(255) NOT NULL,
+  `rol` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +127,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Sofía García','sofia.garcia@email.com','123456'),(2,'Golda López','golda.lopez@email.com','654321'),(4,'Golda Juárez','golda.juarez@email.com','654321'),(11,'sofía','sofi@gmail.com','11'),(12,'sf','sdf@d.com','22'),(13,'Carmen Salinas','carmensita@email.com','123'),(14,'Daniel','daniel@email.com','123'),(15,'Golda','goldita@email.com','1234'),(16,'Jorge','jorge@jorgito.com','456'),(17,'Otsin','otsin@email.com','123'),(19,'ot2','ot2@gmail.com','123'),(20,'hola','hola@email.com','123');
+INSERT INTO `usuario` VALUES (1,'Sofía García','sofia.garcia@email.com','123456',''),(2,'Golda López','golda.lopez@email.com','654321',''),(4,'Golda Juárez','golda.juarez@email.com','654321',''),(11,'sofía','sofi@gmail.com','11',''),(12,'sf','sdf@d.com','22',''),(13,'Carmen Salinas','carmensita@email.com','123',''),(14,'Daniel','daniel@email.com','123',''),(15,'Golda','goldita@email.com','1234',''),(16,'Jorge','jorge@jorgito.com','456','ADMIN'),(17,'Otsin','otsin@email.com','123',''),(19,'ot2','ot2@gmail.com','123',''),(20,'hola','hola@email.com','123',''),(22,'Síkis','sikis@miau.com','miau','USER');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -139,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-24  2:26:04
+-- Dump completed on 2025-07-22 13:15:44

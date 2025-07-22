@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -40,9 +42,14 @@ public class UsuarioController {
             if(usuario.getContrasenia().equals(datosLogin.getContrasenia())) {
                 return ResponseEntity.ok(usuario);
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("La contraseña ingresada es incorrecta.");
+
+                Map<String, String> respuesta = new HashMap<>();
+                respuesta.put("mensaje", "La contraseña es incorrecta");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(respuesta);
             }
         } else {
+            Map<String, String> respuesta = new HashMap<>();
+            respuesta.put("mensaje", "El usuario no se encuentra registrado");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no está registrado.");
         }
     }

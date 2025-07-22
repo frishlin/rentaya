@@ -9,6 +9,8 @@ const Header = ({ onReset }) => {
         return guardado ? JSON.parse(guardado) : null;
     });
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const cargarUsuario = () => {
             const usuarioGuardado = localStorage.getItem('usuario');
@@ -26,8 +28,8 @@ const Header = ({ onReset }) => {
     const cerrarSesion = () => {
         localStorage.removeItem('usuario');
         setUsuario(null);
-        window.location.reload();
-        //navigate('/');
+        //window.location.reload();
+        navigate('/');
     };
 
     return (

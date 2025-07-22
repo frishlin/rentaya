@@ -48,7 +48,7 @@ const LoginUsuario = () => {
                     }  
                 }, 500);
             } else {
-                setMensaje(typeof resultado === 'string' ? resultado : 'Error al iniciar sesión.');
+                setMensaje(resultado.mensaje || 'Error al iniciar sesión');
             }
         } catch(error) {
             setMensaje("Error de red: no se pudo conectar con el servidor.");
