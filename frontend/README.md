@@ -46,3 +46,4 @@ Se debe asegurar de que el backend esté corriendo antes de iniciar el frontend.
 
 Esto último debe abrir el frontend en la URL: http://localhost:5173
 
+** Nota: Solo los usuarios con rol ADMIN pueden visualizar y acceder al panel de administración **

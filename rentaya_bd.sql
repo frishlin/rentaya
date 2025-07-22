@@ -127,7 +127,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Sofía García','sofia.garcia@email.com','123456',''),(2,'Golda López','golda.lopez@email.com','654321',''),(4,'Golda Juárez','golda.juarez@email.com','654321',''),(11,'sofía','sofi@gmail.com','11',''),(12,'sf','sdf@d.com','22',''),(13,'Carmen Salinas','carmensita@email.com','123',''),(14,'Daniel','daniel@email.com','123',''),(15,'Golda','goldita@email.com','1234',''),(16,'Jorge','jorge@jorgito.com','456','ADMIN'),(17,'Otsin','otsin@email.com','123',''),(19,'ot2','ot2@gmail.com','123',''),(20,'hola','hola@email.com','123',''),(22,'Síkis','sikis@miau.com','miau','USER');
+INSERT INTO `usuario` VALUES (1,'Sofía García','sofia.garcia@email.com','123456','USER'),(2,'Golda López','golda.lopez@email.com','654321','USER'),(4,'Golda Juárez','golda.juarez@email.com','654321','USER'),(11,'sofía','sofi@gmail.com','11','USER'),(12,'sf','sdf@d.com','22','USER'),(13,'Carmen Salinas','carmensita@email.com','123','USER'),(14,'Daniel','daniel@email.com','123','USER'),(15,'Golda','goldita@email.com','1234','USER'),(16,'Jorge','jorge@jorgito.com','456','ADMIN'),(17,'Otsin','otsin@email.com','123','USER'),(19,'ot2','ot2@gmail.com','123','USER'),(20,'hola','hola@email.com','123','USER'),(22,'Síkis','sikis@miau.com','miau','USER');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -140,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-22 13:15:44
+-- Dump completed on 2025-07-22 13:23:31
