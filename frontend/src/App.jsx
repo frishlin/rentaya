@@ -14,6 +14,7 @@ import DetalleProducto from './components/DetalleProducto';
 import AgregarCategoria from './components/AgregarCategoria';
 import MisReservas from './components/MisReservas';
 import Favoritos from './components/Favoritos';
+import AdminRoute from './guards/AdminRoute';
 
 const App = () => {
   const [filtrosBusqueda, setFiltrosBusqueda] = useState({
@@ -45,17 +46,20 @@ const App = () => {
           } />
 
           <Route path='/registro' element={<RegistroUsuario />} />
-          <Route path='/admin/registro' element={<RegistroProducto />} />
           <Route path='/login' element={<LoginUsuario />} />
-          <Route path='*' element={<Error404 />} />
-          <Route path='/admin/lista' element={<ListaProductosAdmin />} />
-          <Route path='/editar/:id' element={<EditarProducto />} />
           <Route path='/producto/:id' element={<DetalleProducto />} />
-          <Route path='/admin/categoria' element={<AgregarCategoria />} />
           <Route path="/mis-reservas" element={<MisReservas />} />
           <Route path="/detalle/:id" element={<DetalleProducto />} />
           <Route path="/favoritos" element={<Favoritos />} />
 
+          <Route element={<AdminRoute />}>
+            <Route path="/admin/lista" element={<ListaProductosAdmin />} />
+            <Route path="/admin/registro" element={<RegistroProducto />} />
+            <Route path="/admin/categoria" element={<AgregarCategoria />} />
+            <Route path="/editar/:id" element={<EditarProducto />} />
+          </Route>
+          
+          <Route path="*" element={<Error404 />} />
 
         </Routes>
       </main>
