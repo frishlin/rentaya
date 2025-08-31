@@ -15,54 +15,40 @@ import java.util.List;
 @RequestMapping("/productos")
 public class ProductoController {
 
-    private final ProductoRepository productoRepository;
     private final ProductoService productoService;
 
     public ProductoController(ProductoRepository productoRepository, ProductoService productoService) {
-        this.productoRepository = productoRepository;
         this.productoService = productoService;
     }
 
     @GetMapping
     public List<Producto> obtenerProductos() {
-        return productoRepository.findAll();
+        return productoService.listarProductos();
     }
 
     @PostMapping
     public Producto crearProducto(@RequestBody Producto producto) {
-        return productoRepository.save(producto);
+        return productoService.crearProducto(producto);
     }
 
     @DeleteMapping("/{id}")
     public void eliminarProducto(@PathVariable Long id) {
-        productoRepository.deleteById(id);
+        productoService.eliminarProducto(id);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizarProducto(@PathVariable Long id, @RequestBody Producto productoNuevo) {
-        return productoRepository.findById(id)
-                .map(producto -> {
-                    producto.setNombre(productoNuevo.getNombre());
-                    producto.setDescripcion(productoNuevo.getDescripcion());
-                    producto.setImagenUrl(productoNuevo.getImagenUrl());
-                    producto.setCategoria(productoNuevo.getCategoria());
-                    return ResponseEntity.ok(productoRepository.save(producto));
-                })
-                .orElse(ResponseEntity.notFound().build());
+        return productoService.actualizarProducto(id, productoNuevo);
     }
 
     @GetMapping("/buscar")
     public  List<Producto> buscarProductos(@RequestParam(required = false) String nombre) {
-        if(nombre != null && !nombre.isEmpty()) {
-            return productoRepository.findByNombreContainingIgnoreCase(nombre);
-        } else {
-            return productoRepository.findAll();
-        }
+        return productoService.buscarPorNombre(nombre);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Producto> obtenerProductoPorId(@PathVariable Long id) {
-        return productoRepository.findById(id)
+        return productoService.obtenerProductoPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
