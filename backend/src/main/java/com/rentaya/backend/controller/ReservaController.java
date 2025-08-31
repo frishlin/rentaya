@@ -1,6 +1,5 @@
 package com.rentaya.backend.controller;
 
-import com.rentaya.backend.model.Producto;
 import com.rentaya.backend.model.Reserva;
 import com.rentaya.backend.repository.ReservaRepository;
 import com.rentaya.backend.service.ReservaService;

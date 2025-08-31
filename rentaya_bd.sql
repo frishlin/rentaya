@@ -21,7 +21,7 @@ USE `rentaya`;
 -- Table structure for table `categoria`
 --
 
-DROP TABLE IF EXISTS `categoria`;
+CREATE TABLE IF NOT EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categoria` (
@@ -47,10 +47,7 @@ UNLOCK TABLES;
 -- Table structure for table `producto`
 --
 
-DROP TABLE IF EXISTS `producto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `producto` (
+CREATE TABLE IF NOT EXISTS `producto` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(255) DEFAULT NULL,
   `imagen_url` varchar(255) DEFAULT NULL,
@@ -76,10 +73,7 @@ UNLOCK TABLES;
 -- Table structure for table `reserva`
 --
 
-DROP TABLE IF EXISTS `reserva`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `reserva` (
+CREATE TABLE IF NOT EXISTS `reserva` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `fecha_fin` date DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
@@ -107,10 +101,7 @@ UNLOCK TABLES;
 -- Table structure for table `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuario` (
+CREATE TABLE IF NOT EXISTS `usuario` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
