@@ -32,6 +32,12 @@ Se debe reemplazar `TU_USUARIO` y `TU_PASSWORD` por el usuario y contraseña rea
 ## Conexión entre Frontend y Backend
 El sistema ya se encuentra configurado para conectarse al Backend a través de la siguiente URL: http://localhost:8080
 
+## Bases de datos (scripts)
+En la carpeta database/ se incluyen tres scripts, separados para mayor claridad:
+* 01_database.sql - Para crear la base de datos e inicializarla.
+* 02_tables.sql - Para crear las tablas `categoria`, `producto`, `usuario` y sus relaciones.
+  * (Sin embargo, estas tres tablas junto con la tabla `reserva`, se generan automáticamente al levantar el backend siempre y cuando se tenga la base de datos creada)
+* 03_datos.sql - Inserta un conjunto de datos de ejemplo para el rol de Administrador y Usario
 
 ## Para levantar el proyecto
 
@@ -39,9 +45,11 @@ Se debe asegurar de que el backend esté corriendo antes de iniciar el frontend.
 
 ### Backend
 1. Verificar que el servicio MySQL, se encuentra corriendo.
-2. Abrir el proyecto backend en el IDE (por ejemplo IntelliJ).
-3. Configurar las propiedades de conexión a la base de datos.
-4. Ejecutar la clase principal `BackendApplication`
+2. Asegurar de tener creada la base de datos `rentaya`, de lo contrario, ejecute el script `01_rentaya_bd.sql` en el gestor de su preferencia.
+3. Si lo desea, puede iniciar con datos registrados con rol de `Administrador` y `Usuario` creando las tablas ejecutando el script `02_tables.sql` y después el script `03_datos.sql`
+4. Abrir el proyecto backend en el IDE (por ejemplo IntelliJ).
+5. Configurar las propiedades de conexión a la base de datos.
+6. Ejecutar la clase principal `BackendApplication`
 
 ### Frontend
 1. Abrir una terminal y posicionarse en la carpeta `frontend`.
@@ -51,3 +59,4 @@ Se debe asegurar de que el backend esté corriendo antes de iniciar el frontend.
 Esto último debe abrir el frontend en la URL: http://localhost:5173
 
 ** Nota: Solo los usuarios con rol ADMIN pueden visualizar y acceder al panel de administración **
+
