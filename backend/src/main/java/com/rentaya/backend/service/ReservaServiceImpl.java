@@ -31,6 +31,21 @@ public class ReservaServiceImpl implements ReservaService{
             return ResponseEntity.badRequest().body("El usuario debe estar autenticado para realizar una reserva");
         }
 
+        Long productoId = (reserva.getProducto() != null) ? reserva.getProducto().getId() : null;
+        if (productoId == null) {
+            return ResponseEntity.badRequest().body("Debes indicar el producto a reservar");
+        }
+        boolean haySolape = reservaRepository.existsSolapada(
+                productoId,
+                reserva.getFechaInicio(),
+                reserva.getFechaFin()
+        );
+        if (haySolape) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("El vehículo ya tiene una reserva en esas fechas. Por favor elige otro rango.");
+        }
+
+
         Reserva nuevaReserva = reservaRepository.save(reserva);
         return ResponseEntity.ok(nuevaReserva);
     }

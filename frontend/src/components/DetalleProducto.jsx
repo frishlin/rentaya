@@ -120,13 +120,12 @@ const DetalleProducto = () => {
     }, [id]);
 
     const reservarProducto = async () => {
-        setConfirmacion('');
+        setConfirmacion("");
 
         if (!usuario) {
             setConfirmacion("Debes iniciar sesión para hacer una reserva.");
             return;
         }
-
         if (!fechaInicio || !fechaFin) {
             setConfirmacion("Debes seleccionar tanto fecha de inicio, como fecha de fin");
             return;
@@ -141,7 +140,6 @@ const DetalleProducto = () => {
             setConfirmacion("La fecha de inicio debe ser anterior a la fecha de fin");
             return;
         }
-
         if (inicio < hoy) {
             setConfirmacion("La fecha de inicio no puede ser anterior a hoy");
             return;
@@ -151,29 +149,43 @@ const DetalleProducto = () => {
             fechaInicio,
             fechaFin,
             producto: { id: producto.id },
-            usuario: { id: usuario.id }
+            usuario: { id: usuario.id },
         };
 
         try {
-            const response = await fetch("http://localhost:8080/reservas", {
+            const resp = await fetch("http://localhost:8080/reservas", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(reserva)
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(reserva),
             });
 
-            if (!response.ok) {
-                throw new Error("No se pudo guardar la reserva");
-            }
+            const text = await resp.text();
+            const payload = (() => { try { return JSON.parse(text); } catch { return text; } })();
 
-            setConfirmacion("Reserva realizada exitosamente.");
-            setFechaInicio('');
-            setFechaFin('');
-        } catch (error) {
-            setConfirmacion("Ha ocurrido un error al hacer la reserva");
+            if (resp.ok) {
+                setConfirmacion("Reserva realizada exitosamente.");
+                setFechaInicio("");
+                setFechaFin("");
+
+                try {
+                    const res = await fetch(`http://localhost:8080/reservas/producto/${id}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        setReservasocupadas(data);
+                    }
+                } catch (_) { }
+            } else {
+                const mensaje =
+                    typeof payload === "string"
+                        ? payload
+                        : payload?.mensaje || "No se pudo guardar la reserva";
+                setConfirmacion(mensaje);
+            }
+        } catch (e) {
+            setConfirmacion("Error de conexión con el servidor");
         }
     };
+
 
     if (mensaje) {
         return <p className="mensaje">{mensaje}</p>;
